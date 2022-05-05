@@ -5,6 +5,7 @@ import Catalog from "../../features/catalog/Catalog";
 import Header from "./Header";
 import Footer from "./Footer";
 import ProductDetails from "../../features/catalog/ProductDetails";
+import WishList from "../../features/wishlist/WishList";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/catalog/:id" element={<ProductDetails />} />
         <Route path="*" element={<Catalog />} />
+        <Route path="/wishList" element={<WishList/>} />
       </Routes>
       <Footer />
     </>

@@ -1,5 +1,6 @@
 using API.Data.IRepository;
 using API.DTO;
+using API.Models;
 using API.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
