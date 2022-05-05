@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import LoadingComponent from "../../app/layout/LoadingComponent";
 import { Product } from "../../app/models/product";
 import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
 import { fetchProductsAsync } from "./catalogSlice";
@@ -14,7 +15,7 @@ const ProductList = ({ products }: Props) => {
     if (!productsLoaded) dispatch(fetchProductsAsync());
   }, [dispatch, productsLoaded]);
 
-  if (!productsLoaded) return <p>Loading...</p>;
+  if (!productsLoaded) return <LoadingComponent message="Loading Catalog..."/>;
 
   return (
     <>

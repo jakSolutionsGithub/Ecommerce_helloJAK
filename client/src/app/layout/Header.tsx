@@ -75,7 +75,7 @@ const Header = (props: any) => {
                     <div className="col-lg-6  col-md-6 col-sm-6">
                         
                         <ul className="breadcrumb-list text-center text-sm-end">
-                            <li className="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li className="breadcrumb-item"><Link to="/catalog">Home</Link></li>
                             <li className="breadcrumb-item active">Shop</li>
                         </ul>
                        

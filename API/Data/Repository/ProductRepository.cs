@@ -83,7 +83,9 @@ namespace API.Data.Repository
                 {
 
                     var result = await _client.SendAsync(request);
+                    // var products = await PagedList<Product>.ToPagedList(result, productParams.PageNumber, productParams.pageSize);
                     return result.ToList();
+
 
                 }
                 catch (Exception e)
@@ -151,6 +153,7 @@ namespace API.Data.Repository
                 {
 
                     var result = await _client.SendAsync(request);
+                    // var products = await PagedList<Product>.ToPagedList(result, productParams.PageNumber, productParams.pageSize);
                     return result.ToList();
 
                 }

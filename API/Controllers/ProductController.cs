@@ -1,5 +1,6 @@
 using API.Data.IRepository;
 using API.DTO;
+using API.Extensions;
 using API.Models;
 using API.RequestHelpers;
 using AutoMapper;
@@ -22,6 +23,7 @@ namespace API.Controllers
 
             List<ProductDto> listProductDto = _mapper.Map<List<Product>, List<ProductDto>>(products);
 
+            // Response.AddPaginationHeader(listProductDto.MetaData);
 
             return listProductDto;
 

@@ -13,13 +13,13 @@ const ProductCard = ({product}:Props) => {
         
           
             <div className="products-images">
-                <a href="product-details.html" className="product-thumbnail">
+                <Link to={`/catalog/${product.id}`} className="product-thumbnail">
                     <img src={product.urlPicture1} className="img-fluid" alt="Product Images" style={{width: 300, height: 300}}/>
 
                     <span className="ribbon out-of-stock ">
                     Out Of Stock
                 </span>
-                </a>
+                </Link>
                 <div className="product-actions">
                     <Link to="product-details.html"><i className="p-icon icon-bag2"></i> <span className="tool-tip">Add to cart</span></Link>
                     <Link to="#" data-bs-toggle="modal" data-bs-target="#prodect-modal"><i className="p-icon icon-plus"></i><span className="tool-tip">Quick View</span></Link>

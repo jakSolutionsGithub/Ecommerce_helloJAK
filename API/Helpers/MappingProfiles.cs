@@ -1,5 +1,6 @@
 using API.DTO;
 using API.Models;
+using API.RequestHelpers;
 using AutoMapper;
 
 namespace API.Helpers
@@ -9,6 +10,7 @@ namespace API.Helpers
         public MappingProfiles()
         {
             CreateMap<Product, ProductDto>().ReverseMap();
+            
             
         }
     }

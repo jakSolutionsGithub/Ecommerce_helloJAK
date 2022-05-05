@@ -34,6 +34,19 @@ export const fetchProductsAsync = createAsyncThunk<Product[], void, {state: Root
 
     }
 )
+export const fetchProductAsync = createAsyncThunk<Product,number>(
+    'catalog/fetchProductAsync',
+    async (productId, thunkAPI) => {
+        
+        try{
+            return await agent.Catalog.details(productId)
+        }catch(error: any){
+            return thunkAPI.rejectWithValue({error: error.data})
+        }
+
+    }
+)
+
  function initParams(){
     return{
         OrderBy: 'name',
@@ -63,6 +76,19 @@ export const catalogSlice = createSlice({
         builder.addCase(fetchProductsAsync.rejected, (state, action)=>{
             console.log(action.payload);
             state.status ='idle'
+        });
+        builder.addCase(fetchProductAsync.pending, (state)=> {
+            state.status = 'pendingFetchProduct';
+        });
+        builder.addCase(fetchProductAsync.fulfilled, (state, action) => {
+            productAdapter.upsertOne(state, action.payload);
+            console.log(action.payload);
+            state.status ='idle';
+            
+        });
+        builder.addCase(fetchProductAsync.rejected, (state, action) => {
+            console.log(action);
+            state.status = 'idle';
         })
     })
 })
