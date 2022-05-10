@@ -6,7 +6,7 @@ interface Props {
     message?: string;
 }
 
-const LoadingComponent = ({message = 'Loading...'}: Props) => {
+const LoadingComponent = ({message = ''}: Props) => {
   return (
    <div className='d-flex align-items-center justify-content-center'>
    <Spinner animation="grow" style={{}} />

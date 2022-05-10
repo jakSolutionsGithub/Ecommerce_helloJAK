@@ -54,7 +54,7 @@ const ProductFilter = () => {
           <div className="shop-toolbar__items shop-toolbar__item--right">
             <div className="shop-toolbar__items-wrapper">
               <div className="shop-toolbar__item">
-                <ul
+                {/* <ul
                   className="nav toolber-tab-menu justify-content-start"
                   role="tablist"
                 >
@@ -100,7 +100,7 @@ const ProductFilter = () => {
                       />{" "}
                     </a>
                   </li>
-                </ul>
+                </ul> */}
               </div>
               <div className="shop-toolbar__item shop-toolbar__item--filter ">
                 <Button

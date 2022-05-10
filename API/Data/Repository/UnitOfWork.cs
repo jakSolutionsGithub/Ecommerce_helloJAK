@@ -14,10 +14,10 @@ namespace API.Data.Repository
             
             _client = client;
             Product = new ProductRepository(_client);
-            User = new UserRepository(_client);
+            Client = new ClientRepository(_client);
 
         }
         public IProductRepository<Product> Product { get; private set; }
-        public IUserRepository<User> User { get; private set; }
+        public IClientRepository<Client> Client { get; private set; }
     }
 }

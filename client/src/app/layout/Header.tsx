@@ -1,20 +1,29 @@
 import { useState } from "react";
 import { Button, Offcanvas } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { setProductParams } from "../../features/catalog/catalogSlice";
 import ModalLoginRegister from "../../features/modal/ModalLoginRegister";
+import { useAppDispatch, useAppSelector } from "../store/configureStore";
 import MiniCart from "./MiniCart";
 import MobileMenu from "./MobileMenu";
 
 const Header = (props: any) => {
+  const {productParams} = useAppSelector(state => state.catalog);
   const [showMenu, setShowMenu] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const [modalShow, setModalShow] = useState<boolean>(false);
+  const [searchTerm, setSearchTerm] = useState(productParams.SearchTerm);
+  const dispatch = useAppDispatch();
 
   const handleClose = () => setShowMenu(false);
   const handleShow = () => setShowMenu(true);
 
   const handleCloseCart = () => setShowCart(false);
   const handleShowCart = () => setShowCart(true);
+
+  const debouncedSearch = () => {
+    dispatch(setProductParams({SearchTerm: searchTerm}))
+  }
 
   return (
     <>
@@ -29,8 +38,12 @@ const Header = (props: any) => {
                       className="search-field"
                       type="text"
                       placeholder="Search Anything..."
+                      value={searchTerm || ''}
+                      onChange={(event:any)=>{
+                        setSearchTerm(event.target.value)
+                      }}
                     />
-                    <button className="search-icon">
+                    <button className="search-icon" onClick={debouncedSearch}>
                       <i className="icon-magnifier"></i>
                     </button>
                   </form>

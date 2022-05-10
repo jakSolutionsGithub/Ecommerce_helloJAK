@@ -10,6 +10,7 @@ namespace API.Helpers
         public MappingProfiles()
         {
             CreateMap<Product, ProductDto>().ReverseMap();
+            CreateMap<Client, ClientDto>().ReverseMap();
             
             
         }

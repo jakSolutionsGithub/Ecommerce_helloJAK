@@ -3,6 +3,7 @@ using API.Data.IRepository;
 using API.Data.Repository;
 using API.Helpers;
 using API.Middleware;
+using API.Services;
 using FMData;
 using FMData.Rest;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -80,7 +81,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTSettings:TokenKey"]))
         };
     });
-
+builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();

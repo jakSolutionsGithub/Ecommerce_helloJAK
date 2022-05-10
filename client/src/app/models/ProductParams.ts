@@ -3,4 +3,6 @@ export interface ProductParams {
   SearchTerm: string;
   Category: string[];
   Brand: string[];
+  Skip: number;
+  Take: number;
 }

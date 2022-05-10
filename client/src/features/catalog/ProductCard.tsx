@@ -8,7 +8,6 @@ interface Props{
 
 const ProductCard = ({product}:Props) => {
   return (
-    <>
    <div className="single-product-item text-center col-lg-3 col-md-3 col-sm-6">
         
           
@@ -32,10 +31,7 @@ const ProductCard = ({product}:Props) => {
                     <span className="new-price">{product.price}</span> - <span className="old-price"> {product.price+ product.price/2}</span>
                 </div>
             </div>
-        
-        
     </div>
-    </>
   )
 }
 

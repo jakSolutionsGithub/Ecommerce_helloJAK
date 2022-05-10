@@ -26,7 +26,7 @@ namespace API.Data.Repository
             List<string> categoryList = new();
             List<Product> toFindProduct = new List<Product>();
 
-            var request = _client.GenerateFindRequest<Product>().UseLayout(new Product());
+            var request = _client.GenerateFindRequest<Product>().UseLayout(new Product()).SetLimit(productParams.Take).SetOffset(productParams.Skip);
 
             if (productParams.SearchTerm == null)
             {

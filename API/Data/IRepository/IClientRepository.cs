@@ -2,13 +2,13 @@ using API.DTO;
 
 namespace API.Data.IRepository
 {
-    public interface IUserRepository<T>
+    public interface IClientRepository<T>
     {
-         Task<T> GetByUsername(string username);
+         Task<T> GetByClientName(string username);
          bool Checkpassword(string passwordToEncrypt, string passwordEncrypted);
 
          Task<IEnumerable<T>> GetAll();
          Task<T> GetById(int id);
-         Task<UserDto> Register(RegisterDto registerDto);
+         Task<ClientDto> Register(RegisterDto registerDto);
     }
 }
