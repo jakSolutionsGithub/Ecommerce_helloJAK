@@ -18,16 +18,16 @@ namespace API.Controllers
 
 
         [HttpPost("login")]
-        public async Task<ActionResult<LoginDto>> Login(LoginDto loginDTO)
+        public async Task<ActionResult<LoginDto>> Login(BeforLoginDto BeforLoginDTO)
         {
-            var client = await _unitOfWork.Client.GetByClientName(loginDTO.AccountName);
-            if (client == null || _unitOfWork.Client.Checkpassword(loginDTO.Password, client.Password))
+            var client = await _unitOfWork.Client.GetByClientName(BeforLoginDTO.AccountName);
+            if (client == null || _unitOfWork.Client.Checkpassword(BeforLoginDTO.Password, client.Password))
                 return Unauthorized();
 
             return new LoginDto
             {
                 AccountName = client.AccountName,
-                Token =  _tokenService.GenerateToken(loginDTO)
+                Token = await _tokenService.GenerateToken(BeforLoginDTO)
             };
         }
 
@@ -38,7 +38,7 @@ namespace API.Controllers
             var registerUser = await _unitOfWork.Client.Register(registerDto);
 
             if(registerUser == null){
-                 
+                
                  return ValidationProblem();
 
             }
@@ -57,6 +57,17 @@ namespace API.Controllers
 
         }
 
+        [HttpGet("currentClient")]
+        public async Task<ActionResult<LoginDto>> GetCurrentClient(){
+
+            var client = await _unitOfWork.Client.GetByClientName(User.Identity.Name);
+
+
+            return new LoginDto{
+                AccountName = client.AccountName,
+                Token = await _tokenService.GenerateToken(new BeforLoginDto{AccountName = client.AccountName})
+            };
+        }
 
 
     }

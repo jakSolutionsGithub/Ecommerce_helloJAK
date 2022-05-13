@@ -25,12 +25,18 @@ const Catalog = {
 }
 
 
+const Client = {
+    login: (values: any) => requests.post('client/login', values),
+    register:(values: any) => requests.post('client/register', values),
+    currentClient:()=> requests.get('client/currentClient')
 
+}
 
 
 
 const agent = {
-    Catalog
+    Catalog,
+    Client
 }
 
 

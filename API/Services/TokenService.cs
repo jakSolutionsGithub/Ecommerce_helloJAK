@@ -20,10 +20,10 @@ namespace API.Services
 
         }
 
-        public string GenerateToken(LoginDto loginDto){
+        public async Task<string> GenerateToken(BeforLoginDto BeforLoginDto){
             
             var claims = new List<Claim>{
-                new Claim(ClaimTypes.Name, loginDto.AccountName)
+                new Claim(ClaimTypes.Name, BeforLoginDto.AccountName)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWTSettings:TokenKey"]));

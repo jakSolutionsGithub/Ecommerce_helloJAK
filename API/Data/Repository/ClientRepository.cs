@@ -18,10 +18,9 @@ namespace API.Data.Repository
         }
         public async Task<Client> GetByClientName(string accountName)
         {
-            var toFind = new Client { AccountName = "==" + accountName };
-
-            var result = await _client.FindAsync(toFind);
-            return result.FirstOrDefault();
+            
+            var result = await ToFindByAccountName(accountName);
+            return result;
         }
         public bool Checkpassword(string passwordToEncrypt, string passwordEncrypted)
         {
@@ -32,7 +31,7 @@ namespace API.Data.Repository
 
         public async Task<IEnumerable<Client>> GetAll()
         {
-            var toFind = new Client { AccountName = "*", FirstName="*" };
+            var toFind = new Client { AccountName = "*"};
 
             var request = _client.GenerateFindRequest<Client>().UseLayout(new Client());
 
@@ -61,13 +60,36 @@ namespace API.Data.Repository
         }
         public async Task<ClientDto> Register(RegisterDto registerDto)
         {
+            var findByAccountName = ToFindByAccountName(registerDto.AccountName);
+
+            if(findByAccountName != null) {
+
+                return null;
+            }
+             var findByEmail = ToFindByEmail(registerDto.AccountName);
+
+            if(findByEmail != null) {
+
+                // update (edit record)
+                var clientUpdate = new CreatClient{AccountName = registerDto.AccountName, Password= registerDto.Password};
+                var resultUpdate = await _client.EditAsync(findByEmail.Result.Id_Record, clientUpdate);
+                // return client
+                if ( resultUpdate.Messages.First().Code == "0"){
+
+                    var client = new ClientDto{AccountName= findByEmail.Result.AccountName };
+                    return client;
+                }
+
+            }
+
 
             if (registerDto != null)
             {
-                var client = new Client { AccountName = registerDto.AccountName, Email = registerDto.Email, Password = registerDto.Password, FirstName = registerDto.FirstName, LastName = registerDto.LastName, };
+                var client = new CreatClient { AccountName = registerDto.AccountName, Email = registerDto.Email, Password = registerDto.Password, FirstName = registerDto.FirstName, LastName = registerDto.LastName };
                 var result = await _client.CreateAsync(client);
+                
 
-                if (result.Messages.First().Code != "0")
+                if (result.Messages.First().Code == "0")
                 {
                     var toFindClient = new Client{Id_Record = result.Response.RecordId};
                     var res = await _client.FindAsync(toFindClient);
@@ -79,6 +101,23 @@ namespace API.Data.Repository
             }
             return null;
 
+        }
+
+        private async Task<Client> ToFindByAccountName(string AccountName){
+
+            var toFind = new Client { AccountName = "=="+ AccountName};
+
+            var request = await  _client.FindAsync(toFind);
+
+            return request.FirstOrDefault();
+        }
+                private async Task<Client> ToFindByEmail(string AccountName){
+
+            var toFind = new Client { Email = "=="+ AccountName};
+
+            var request = await  _client.FindAsync(toFind);
+
+            return request.FirstOrDefault();
         }
     }
 }
